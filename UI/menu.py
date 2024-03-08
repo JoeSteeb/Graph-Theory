@@ -5,16 +5,27 @@ from .buttons import *
 button_width, button_height = 200, 40
 button_margin = 10
 
-# Button texts
-buttons = [("Create Node", lambda x: print("Create Node")), ("Create Edge", lambda x: print("Create Edge"))]
- 
-def draw_button(screen, x, y, width=200, height=40, text="NONE"):
-    pygame.draw.rect(screen, colour.grey, [x, y, width, height])
+class Menu:
     
-def draw_menu(screen, screen_height, click):
-    button = create_button("Click Me Click Me Click Me", "circle", (100, 200),onclick=lambda: print("clicked"))
-    if click:
-        button.handle_click(click)
-    button.draw(screen)
+    def __init__(self, screen, screen_width, screen_height):
+        self.screen = screen
+        self.active_buttons = {}
+        self.screen_height = screen_height
+        self.screen_width = screen_width
+        self.active_buttons["place_node"] = create_button("Place Node", "rectangle", (10, screen_height-100))
+        self.active_buttons["place_edge"] = create_button("Place Edge", "rectangle", (10, screen_height-50))
+        
+        
+    def draw(self, screen, click):
+        for button in self.active_buttons.values():
+            if click:
+                button.handle_click(click)
+            # print(button.text,"clicked?: ", button.clicked)
+            if button.clicked:
+                button.shape.colour = colour.green
+            else:
+                button.shape.colour = colour.light_grey
+                
+            button.draw(screen)
 
         
