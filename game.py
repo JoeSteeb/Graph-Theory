@@ -27,8 +27,8 @@ while running:
     menu.screen_width = screen_width
     menu.screen_height = screen_height
     # Draw Menu
-    menu.draw(screen, click)
-    work_bench.handle_click(click, work_bench.active_nodes)  
+    if not menu.draw(screen, click):
+        work_bench.handle_click(click, work_bench.active_nodes)  
     work_bench.draw()  
     pygame.display.flip()
 

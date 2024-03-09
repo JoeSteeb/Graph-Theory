@@ -54,7 +54,6 @@ class Button:
 
     def handle_click(self, position):
         if(self.shape.check_click(position)):
-            print("WHY THE FUCK")
             self.onclick()
             self.clicked = not self.clicked
             return True
@@ -80,12 +79,9 @@ def create_button(text, shape_type, position, text_colour='black', background_co
     if shape_type.lower() == 'rectangle':
         shape = Rectangle(x, y, text_width, text_height, getattr(colour, background_colour))
     elif shape_type.lower() == 'circle':
-        # For a circle, we'll consider the text_width as the diameter for simplicity
-        # Adjust circle's x and y to be at the center of the text
         radius = max(text_width, text_height) // 2
         shape = Circle(x + radius - padding, y + radius - padding, radius, getattr(colour, background_colour))
     else:
         raise ValueError(f"Unsupported shape type: {shape_type}")
 
-    # Create and return the button with the new shape and provided text, font size, and colours
     return Button(shape, x, y, onclick, text=text, font_size=font_size, text_colour=getattr(colour, text_colour))

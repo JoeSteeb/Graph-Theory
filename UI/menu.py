@@ -17,15 +17,17 @@ class Menu:
         
         
     def draw(self, screen, click):
+        clicked = False
         for button in self.active_buttons.values():
             if click:
                 button.handle_click(click)
             # print(button.text,"clicked?: ", button.clicked)
             if button.clicked:
+                clicked = True
                 button.shape.colour = colour.green
             else:
-                button.shape.colour = colour.light_grey
-                
+                button.shape.colour = colour.light_grey                
             button.draw(screen)
+        return clicked
 
         
