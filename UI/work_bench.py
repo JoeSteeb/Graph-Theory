@@ -13,11 +13,13 @@ class Work_Bench:
         self.active_nodes[node.id] = node
     
     def draw(self):
-        if(len(self.clicked_nodes) > 1):
-            draw_edge(self.screen, self.clicked_nodes[0], self.clicked_nodes[1])
+        # if len(self.clicked_nodes) > 1:
+        #     draw_edge(self.screen, self.clicked_nodes[0], self.clicked_nodes[1])
         for node in self.active_nodes.values():
+            for id in node.edges:
+                draw_edge(self.screen, self.active_nodes[id], node)       
+        for node in self.active_nodes.values():    
             node.draw(self.screen)
-        
             
     def handle_click(self, click, menu_state):
         if not click:
@@ -32,6 +34,8 @@ class Work_Bench:
                 if len(self.clicked_nodes) > 2:
                     self.clicked_nodes[0].button.shape.colour = colour.light_grey
                     self.clicked_nodes.pop(0)
+                if len(self.clicked_nodes) > 1:
+                    node.add_edge(self.clicked_nodes[0].id)
                 clicked_existing = True
         if not clicked_existing:
             self.add_node(

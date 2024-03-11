@@ -9,7 +9,7 @@ class Node:
         self.y = location[1]
         self.button = create_button("text", "circle", (location[0], location[1]))
         
-    def add_edge(self,id):
+    def add_edge(self, id):
         self.edges.append(id)
         self.degree+=1
         
