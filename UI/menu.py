@@ -25,6 +25,7 @@ class Menu:
             # print(button.text,"clicked?: ", button.clicked)
             if button.clicked:
                 button.shape.colour = colour.green
+                print("menu button clicked")
             else:
                 button.shape.colour = colour.light_grey                
             button.draw(screen)

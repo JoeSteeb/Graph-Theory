@@ -12,6 +12,6 @@ class Mouse:
                 return pygame.mouse.get_pos()
             if event.type == pygame.MOUSEBUTTONUP:
                 self.drag = False
-                return pygame.mouse.get_pos()
+                # return pygame.mouse.get_pos()
             self.position = pygame.mouse.get_pos()
         return None
