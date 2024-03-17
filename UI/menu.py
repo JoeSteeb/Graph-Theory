@@ -20,10 +20,10 @@ class Menu:
         clicked = False
         for button in self.active_buttons.values():
             if click:
-                button.handle_click(click)
+                if button.handle_click(click):
+                    clicked = True
             # print(button.text,"clicked?: ", button.clicked)
             if button.clicked:
-                clicked = True
                 button.shape.colour = colour.green
             else:
                 button.shape.colour = colour.light_grey                

@@ -51,6 +51,12 @@ class Button:
         font = pygame.font.Font(None, self.font_size)
         text_render = font.render(self.text, True, self.text_colour)
         screen.blit(text_render, (self.x, self.y))
+    
+    def move(self, x, y):
+        self.x = x
+        self.y = y
+        self.shape.x = self.x
+        self.shape.y = self.y
 
     def handle_click(self, position):
         if(self.shape.check_click(position)):

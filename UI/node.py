@@ -7,8 +7,31 @@ class Node:
         self.edges = []
         self.x = location[0]
         self.y = location[1]
+        self.last_position = None
         self.button = create_button("text", "circle", (location[0], location[1]))
+    
+    def get_location(self):
+        return (self.button.x, self.button.y)
+    
+    def handle_click(self, position):
+        clicked = self.button.handle_click(position)
+        if clicked:
+            self.last_position = position
+        else:
+            self.last_position = None
+        return clicked
+    
+    def move(self, position):
+        self.x = position[0]
+        self.y = position[1]
+        self.button.move(position[0], position[1])
         
+    def handle_movement(self, click):
+        if self.last_position and click != self.last_position:
+            self.move(click)
+            
+        print("movement")
+    
     def add_edge(self, id):
         self.edges.append(id)
         self.degree+=1

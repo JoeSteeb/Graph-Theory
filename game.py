@@ -3,12 +3,13 @@ import sys
 from UI.menu import Menu
 from UI.work_bench import Work_Bench
 import UI.colour as colour
-import IO.mouse as mouse
+from IO.mouse import Mouse
 
 # Initialize Pygame
 pygame.init()
 
 screen = pygame.display.set_mode((640, 480), pygame.RESIZABLE)
+mouse = Mouse()
 
 # Button dimensions and positions
 button_margin = 10
@@ -27,8 +28,10 @@ while running:
     menu.screen_width = screen_width
     menu.screen_height = screen_height
     # Draw Menu
+    
     if not menu.draw(screen, click):
-        work_bench.handle_click(click, work_bench.active_nodes)  
+        work_bench.handle_click(click, menu.active_buttons, mouse)
+    
     work_bench.draw()  
     pygame.display.flip()
 
