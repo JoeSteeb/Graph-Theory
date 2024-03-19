@@ -12,7 +12,8 @@ class Menu:
         self.active_buttons = {}
         self.screen_height = screen_height
         self.screen_width = screen_width
-        self.active_buttons["place_node"] = create_button("Place Node", "rectangle", (10, screen_height-100))
+        self.active_buttons["place_node"] = create_button("Place Node", "rectangle", (10, screen_height-150))
+        self.active_buttons["delete_node"] = create_button("Remove Node", "rectangle", (10, screen_height-100))
         self.active_buttons["place_edge"] = create_button("Place Edge", "rectangle", (10, screen_height-50))
         
         
@@ -25,7 +26,7 @@ class Menu:
             # print(button.text,"clicked?: ", button.clicked)
             if button.clicked:
                 button.shape.colour = colour.green
-                print("menu button clicked")
+                # print("menu button clicked")
             else:
                 button.shape.colour = colour.light_grey                
             button.draw(screen)

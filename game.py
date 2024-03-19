@@ -32,7 +32,8 @@ while running:
     if not menu.draw(screen, click):
         work_bench.handle_click(click, menu.active_buttons, mouse)
     
-    work_bench.draw()  
+    work_bench.draw(menu.active_buttons)  
+    
     pygame.display.flip()
 
 pygame.quit()

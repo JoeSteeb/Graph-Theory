@@ -30,11 +30,18 @@ class Node:
         if self.last_position and click != self.last_position:
             self.move(click)
             
-        print("movement")
+    def get_radius(self):
+        return self.button.shape.get_radius()
+            
+        # print("movement")
     
     def add_edge(self, id):
         self.edges.append(id)
         self.degree+=1
+        
+    def remove_edge(self, id):
+        if id in self.edges:
+            self.edges.remove(id)
         
     def draw(self, screen):
         self.button.draw(screen)

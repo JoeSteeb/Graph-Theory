@@ -17,6 +17,9 @@ class Circle(Shape):
 
     def draw(self, screen):
         pygame.draw.circle(screen, self.colour, (self.x, self.y), self.radius)
+        
+    def get_radius(self):
+        return self.radius
 
     def check_click(self, position):
         # Calculate distance from circle center to click position
