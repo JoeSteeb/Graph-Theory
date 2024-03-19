@@ -1,6 +1,8 @@
 from .node import Node
 from . import colour
 from .edge import draw_edge
+from IO.keyboard import Keyboard
+import pygame
 
 class Work_Bench:
     def __init__(self, screen):
@@ -9,6 +11,7 @@ class Work_Bench:
         self.current_click = None
         self.screen = screen
         self.current_id = 0
+        self.keyboard = Keyboard()
         
     def add_node(self, node):
         self.active_nodes[node.id] = node
@@ -21,10 +24,20 @@ class Work_Bench:
                 draw_edge(self.screen, self.active_nodes[id], node)       
         for node in self.active_nodes.values():    
             node.draw(self.screen)
-            if not active_buttons["place_edge"].clicked:
+            if not active_buttons["place_edge"].clicked and  not active_buttons["edit_lable"].clicked:
                 node.button.shape.colour = colour.light_grey
                 self.clicked_nodes = []
-            
+    
+    def handle_key_press(self, menu_buttons, events):
+        key = self.keyboard.check_for_key_press(events)
+        if not menu_buttons["edit_lable"] or not key:
+            return
+        if key == pygame.K_BACKSPACE:
+            print("BACKSPACE")
+        for node in self.clicked_nodes:
+            node.button.text = self.keyboard.modify_str(node.button.text, key)
+        
+                        
     def handle_click(self, click, menu_buttons, mouse):
             
         if mouse.drag:
@@ -51,11 +64,18 @@ class Work_Bench:
                     for n in self.clicked_nodes:
                         n.button.shape.colour = colour.light_grey
                     self.clicked_nodes = []
+                    
             elif menu_buttons["delete_node"].clicked:
                 # remove dependent adjacencies
                 for node in self.active_nodes.values():
                     node.remove_edge(self.current_click.id)
                 self.active_nodes.pop(self.current_click.id)
+                
+            elif menu_buttons["edit_lable"].clicked:
+                if self.current_click:
+                    self.clicked_nodes += [self.current_click]
+                    self.current_click.button.shape.colour = colour.light_green
+                                
                     
         if not clicked_existing:
             self.add_node(

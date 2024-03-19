@@ -5,8 +5,8 @@ class Mouse:
         self.drag = False
         self.position = None
         
-    def check_for_click(self):
-        for event in pygame.event.get():
+    def check_for_click(self, events):
+        for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.drag = True
                 return pygame.mouse.get_pos()

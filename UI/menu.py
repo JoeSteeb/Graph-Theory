@@ -12,6 +12,8 @@ class Menu:
         self.active_buttons = {}
         self.screen_height = screen_height
         self.screen_width = screen_width
+        self.collapsed = False
+        self.active_buttons["edit_lable"] = create_button("Edit Lable", "rectangle", (10, screen_height-200))
         self.active_buttons["place_node"] = create_button("Place Node", "rectangle", (10, screen_height-150))
         self.active_buttons["delete_node"] = create_button("Remove Node", "rectangle", (10, screen_height-100))
         self.active_buttons["place_edge"] = create_button("Place Edge", "rectangle", (10, screen_height-50))

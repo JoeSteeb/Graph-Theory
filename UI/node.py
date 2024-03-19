@@ -8,7 +8,7 @@ class Node:
         self.x = location[0]
         self.y = location[1]
         self.last_position = None
-        self.button = create_button("text", "circle", (location[0], location[1]))
+        self.button = create_button("", "circle", (location[0], location[1]))
     
     def get_location(self):
         return (self.button.x, self.button.y)
