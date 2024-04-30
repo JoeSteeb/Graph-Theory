@@ -14,7 +14,7 @@ class Menu:
         self.collapsed = False
 
         # List of button names and their respective titles
-        buttons_info = [
+        self.buttons_info = [
             ("edit_lable", "Edit Lable"),  # Maintaining original spelling
             ("place_node", "Place Vertex"),
             ("delete_node", "Remove Vertex"),
@@ -23,18 +23,25 @@ class Menu:
         ]
 
         # Calculate the starting y position dynamically based on the number of buttons
-        total_buttons_height = len(buttons_info) * button_height + (len(buttons_info) - 1) * button_margin
+        total_buttons_height = len(self.buttons_info) * button_height + (len(self.buttons_info) - 1) * button_margin
         start_y = screen_height - total_buttons_height
         
         # Creating buttons and setting their positions dynamically
-        for i, (key, title) in enumerate(buttons_info):
+        for i, (key, title) in enumerate(self.buttons_info):
             button_y = start_y + i * (button_height + button_margin)
             self.active_buttons[key] = create_button(title, "rectangle", (10, button_y))
 
+    def adjust_buttons(self):
+        total_buttons_height = len(self.active_buttons) * button_height + (len(self.active_buttons) - 1) * button_margin
+        start_y = self.screen_height - total_buttons_height
+        for i, button in enumerate(self.active_buttons.values()):
+            button_y = start_y + i * (button_height + button_margin)
+            button.move(10, button_y)
         
         
     def draw(self, screen, click):
         clicked = False
+        self.adjust_buttons()
         for button in self.active_buttons.values():
             if click:
                 if button.handle_click(click):
