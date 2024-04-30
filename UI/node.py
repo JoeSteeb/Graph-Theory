@@ -37,9 +37,12 @@ class Node:
             
         # print("movement")
     
-    def add_edge(self, id):
-        self.edges.append(id)
+    def add_edge(self, node):
+        if(node.id in self.edges):
+            return
+        self.edges.append(node.id)
         self.degree+=1
+        node.degree+=1
         
     def remove_edge(self, id):
         if id in self.edges:

@@ -69,15 +69,13 @@ class Work_Bench:
                 self.handle_delete_node()
             elif menu_buttons["edit_lable"].clicked:
                 self.handle_edit_label()
-            elif menu_buttons["show_degree"].clicked:
-                self.handle_show_degree()
                     
         if not clicked_existing:
             if not menu_buttons["place_node"].clicked:
                 self.clicked_nodes = []
                 return
             self.add_node(
-                Node("TEST", click, self.current_id)
+                Node("", click, self.current_id)
             )
             self.current_id += 1
 
@@ -85,7 +83,7 @@ class Work_Bench:
         self.current_click.button.shape.colour = colour.green
         self.clicked_nodes.append(self.current_click)
         if len(self.clicked_nodes) > 1:
-            self.current_click.add_edge(self.clicked_nodes[0].id)
+            self.current_click.add_edge(self.clicked_nodes[0])
             for n in self.clicked_nodes:
                 n.button.shape.colour = colour.light_grey
             self.clicked_nodes = []
