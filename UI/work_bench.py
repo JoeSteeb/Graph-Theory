@@ -1,6 +1,6 @@
 from .node import Node
 from . import colour
-from .edge import draw_edge
+from .edge import draw_edge, draw_directed_edge
 from IO.keyboard import Keyboard
 import pygame
 
@@ -19,7 +19,7 @@ class Work_Bench:
     def draw(self, active_buttons):
         for node in self.active_nodes.values():
             for id in node.edges:
-                draw_edge(self.screen, self.active_nodes[id], node)       
+                draw_directed_edge(self.screen, self.active_nodes[id], node)       
         for node in self.active_nodes.values(): 
             if(active_buttons["show_degree"].clicked):
                 node.button.text = str(node.degree)
