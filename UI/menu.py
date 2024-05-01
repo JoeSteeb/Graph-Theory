@@ -19,6 +19,7 @@ class Menu:
             ("place_node", "Place Vertex"),
             ("delete_node", "Remove Vertex"),
             ("place_edge", "Place Edge"),
+            ("place_directed_edge", "Place Directed Edge"),
             ("show_degree", "Show Degree")
         ]
 
