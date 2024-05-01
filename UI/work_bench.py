@@ -12,6 +12,7 @@ class Work_Bench:
         self.screen = screen
         self.current_id = 0
         self.keyboard = Keyboard()
+        self.font= pygame.font.Font(None, 20)
         
     def add_node(self, node):
         self.active_nodes[node.id] = node
@@ -19,7 +20,11 @@ class Work_Bench:
     def draw(self, active_buttons):
         for node in self.active_nodes.values():
             for id in node.edges:
-                draw_directed_edge(self.screen, self.active_nodes[id], node)       
+                if(active_buttons["directed"].clicked):
+                    draw_directed_edge(self.screen, self.active_nodes[id], node)       
+                else:
+                    draw_edge(self.screen, self.active_nodes[id], node)
+        edge_count = 0
         for node in self.active_nodes.values(): 
             if(active_buttons["show_degree"].clicked):
                 node.button.text = str(node.degree)
@@ -30,6 +35,16 @@ class Work_Bench:
             if not active_buttons["place_edge"].clicked and  not active_buttons["edit_lable"].clicked:
                 node.button.shape.colour = colour.light_grey
                 self.clicked_nodes = []
+            edge_count += len(node.edges)
+                
+        vertex_text = self.font.render("Vertex Count: " + str(len(self.active_nodes)), True, colour.black)
+        edge_text = self.font.render("Edge Count: " + str(edge_count), True, colour.black)        
+        vertex_text_rect = vertex_text.get_rect()
+        edge_text_rect = edge_text.get_rect()
+        vertex_text_rect.topleft = (10, 10)  # Center the text
+        edge_text_rect.topleft = (10, 25)
+        self.screen.blit(vertex_text, vertex_text_rect)
+        self.screen.blit(edge_text, edge_text_rect)
     
     def handle_key_press(self, menu_buttons, events):
         key = self.keyboard.check_for_key_press(events)
@@ -89,9 +104,12 @@ class Work_Bench:
             self.clicked_nodes = []
 
     def handle_delete_node(self):
+        for id in self.current_click.edges:
+            self.active_nodes[id].degree -= 1
         for node in self.active_nodes.values():
             node.remove_edge(self.current_click.id)
         self.active_nodes.pop(self.current_click.id)
+        
 
     def handle_edit_label(self):
         for n in self.clicked_nodes:

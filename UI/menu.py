@@ -19,7 +19,7 @@ class Menu:
             ("place_node", "Place Vertex"),
             ("delete_node", "Remove Vertex"),
             ("place_edge", "Place Edge"),
-            ("place_directed_edge", "Place Directed Edge"),
+            ("directed", "Directed?"),
             ("show_degree", "Show Degree")
         ]
 
@@ -46,13 +46,15 @@ class Menu:
         for button in self.active_buttons.values():
             if click:
                 if button.handle_click(click):
+                    for button2 in self.active_buttons.values():
+                        if button2 != button and not (
+                            button2 == self.active_buttons["directed"] or
+                            button2 == self.active_buttons["show_degree"]):
+                            button2.clicked = False
+                            button2.shape.colour = colour.light_grey
                     clicked = True
             # print(button.text,"clicked?: ", button.clicked)
             if button.clicked:
-                for button2 in self.active_buttons.values():
-                    if button2 != button:
-                        button2.clicked = False
-                        button2.shape.colour = colour.light_grey
                 button.shape.colour = colour.green
                 # print("menu button clicked")
             else:

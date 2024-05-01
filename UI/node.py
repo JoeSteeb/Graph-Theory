@@ -47,6 +47,7 @@ class Node:
     def remove_edge(self, id):
         if id in self.edges:
             self.edges.remove(id)
+            self.degree -= 1
         
     def draw(self, screen):
         self.button.draw(screen)
